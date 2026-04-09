@@ -1,13 +1,12 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+import os
+
 
 def before_all(context):
-    # Use Service to wrap the chromedriver path
-    service = Service(ChromeDriverManager().install())
-    context.driver = webdriver.Chrome(service=service)
-    context.driver.maximize_window()
+    pass  # Driver is initialised per-scenario in the @given step
+
 
 def after_all(context):
+    # Safety cleanup in case the browser wasn't closed by the test
     if hasattr(context, "driver"):
         context.driver.quit()
