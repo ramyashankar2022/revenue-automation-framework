@@ -1,0 +1,71 @@
+name: Automation Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  # ============================================================
+  # JOB 1: API Automation — Java + RestAssured + Cucumber
+  # ============================================================
+  api-automation:
+    name: API Automation (RestAssured + Cucumber)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Run API Tests
+        working-directory: api-automation
+        run: mvn test
+
+      - name: Upload API Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-cucumber-report
+          path: api-automation/target/cucumber-reports/
+
+  # ============================================================
+  # JOB 2: UI Automation — Python + Selenium + Behave
+  # ============================================================
+  ui-automation:
+    name: UI Automation (Selenium + Behave)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Install Python dependencies
+        working-directory: ui-automation
+        run: pip install -r requirements.txt
+
+      - name: Run UI Tests
+        working-directory: ui-automation
+        run: behave --no-capture --format json --outfile reports/report.json --format pretty
+
+      - name: Upload UI Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ui-behave-report
+          path: ui-automation/reports/
