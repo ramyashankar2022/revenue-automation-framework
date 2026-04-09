@@ -36,10 +36,11 @@ def step_open_service_nsw(context):
     # Run headless in CI (GitHub Actions sets CI=true automatically)
     # Runs with a visible browser window when run locally
     if os.environ.get('CI'):
-        options.add_argument("--headless")
+        options.add_argument("--headless=new")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--window-size=1920,1080")
+        options.add_argument("--disable-gpu")
 
     context.driver = Chrome(
         service=Service(ChromeDriverManager().install()),
