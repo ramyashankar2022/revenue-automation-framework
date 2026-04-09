@@ -39,31 +39,31 @@ The framework includes:
 
 1) Clone Repository
 
-1. git clone https://github.com/ramyashankar2022/revenue-automation-framework.git
-2. cd revenue-automation-framework
+- git clone https://github.com/ramyashankar2022/revenue-automation-framework.git
+- cd revenue-automation-framework
 
 2) UI Automation (Python)
 
 Install dependencies
-1. cd ui-automation
-2. pip install -r requirements.txt
+- cd ui-automation
+- pip install -r requirements.txt
 
 Run tests
-1. behave
+- behave
 
 3) API Automation (Java)
 
 Prerequisites
-1. Java 21
-2. Maven
+- Java 21
+- Maven
 
 
-# Run tests
-1. cd api-automation
-2. mvn test
+Run tests
+- cd api-automation
+-  mvn test
 
 # CI/CD Pipeline (GitHub Actions)
-1. Pipeline runs automatically on: Push to main
+- Pipeline runs automatically on: Push to main
 
 # Pipeline Steps:
 1. Checkout code
