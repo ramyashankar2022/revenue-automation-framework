@@ -37,34 +37,33 @@ The framework includes:
 
 ---
 
-1)Clone Repository
+1) Clone Repository
 
-git clone https://github.com/ramyashankar2022/revenue-automation-framework.git
-cd revenue-automation-framework
+1. git clone https://github.com/ramyashankar2022/revenue-automation-framework.git
+2. cd revenue-automation-framework
 
 2) UI Automation (Python)
 
 Install dependencies
-cd ui-automation
-pip install -r requirements.txt
+1. cd ui-automation
+2. pip install -r requirements.txt
 
 Run tests
-behave
+1. behave
 
 3) API Automation (Java)
 
 Prerequisites
-Java 21
-Maven
+1. Java 21
+2. Maven
 
 
-Run tests
-cd api-automation
-mvn test
+# Run tests
+1. cd api-automation
+2. mvn test
 
-🔄 CI/CD Pipeline (GitHub Actions)
-Pipeline runs automatically on:
-Push to main
+# CI/CD Pipeline (GitHub Actions)
+1. Pipeline runs automatically on: Push to main
 
 # Pipeline Steps:
 1. Checkout code
@@ -74,10 +73,10 @@ Push to main
 5. Run API tests (Cucumber + Rest Assured)
 
 # Reporting
-Console-based execution logs
-Clear assertion outputs for debugging
+1. Console-based execution logs
+2. Clear assertion outputs for debugging
 
 # Notes
-UI tests run in headless mode in CI/CD
-ChromeDriver is managed automatically
-No manual setup required for drivers
+1. UI tests run in headless mode in CI/CD
+2. ChromeDriver is managed automatically
+3. No manual setup required for drivers
