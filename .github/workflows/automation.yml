@@ -54,14 +54,30 @@ jobs:
 
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 'stable'
+
+      - name: Install ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
 
       - name: Install Python dependencies
         working-directory: ui-automation
         run: pip install -r requirements.txt
 
+      - name: Create reports directory
+        working-directory: ui-automation
+        run: mkdir -p reports
+
       - name: Run UI Tests
         working-directory: ui-automation
-        run: behave --no-capture --format json --outfile reports/report.json --format pretty
+        env:
+          CI: "true"
+        run: |
+          echo "Chrome version:"
+          google-chrome --version || true
+          echo "ChromeDriver version:"
+          chromedriver --version || true
+          behave --no-capture --format json --outfile reports/report.json --format pretty
 
       - name: Upload UI Test Report
         uses: actions/upload-artifact@v4
