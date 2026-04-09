@@ -57,9 +57,6 @@ jobs:
         with:
           chrome-version: 'stable'
 
-      - name: Install ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-
       - name: Install Python dependencies
         working-directory: ui-automation
         run: pip install -r requirements.txt
