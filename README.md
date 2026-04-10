@@ -29,15 +29,13 @@ revenue-automation-framework/
 │   └── workflows/
 │       └── automation-pipeline.yml          ← GitHub Actions CI/CD configuration
 │
-├── ui-automation/                           ← UI Testing (Selenium + Behave)
-│   ├── features/
-│   │   ├── check_stamp_duty.feature        ← BDD test scenarios
-│   │   ├── environment.py                  ← Behave hooks for setup/teardown
-│   │   └── steps/
-│   │       └── check_stamp_duty_steps.py   ← Step implementations with assertions
-│   ├── reports/                            ← Generated test reports
-│   ├── requirements.txt                    ← Python dependencies
-│   └── behave.ini                          ← Behave configuration
+├ui-automation/features/
+├── utils/
+│   ├── __init__.py              ← makes utils a Python package
+│   └── helpers.py               ← ALL reusable functions live here
+├── steps/
+│   └── check_stamp_duty_steps.py ← now thin — only BDD step logic
+└── environment.py
 │
 ├── api-automation/                          ← API Testing (Maven + Cucumber)
 │   ├── src/test/
