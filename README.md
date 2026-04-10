@@ -396,26 +396,5 @@ cd revenue-automation-framework
 
 ---
 
-## 👥 Contact & Access
-
-**GitHub Repository**: 
-```
-https://github.com/YOUR_USERNAME/revenue-automation-framework
-```
-
-**For Interview Panel**:
-- Repository is **PUBLIC** — accessible without credentials
-- Clone, run locally, or view CI/CD runs on GitHub
-- All test code and configuration is visible and runnable
-
----
-
-## 📄 License
-
-This project is provided as-is for demonstration and testing purposes.
-
----
-
 **Framework Version**: 1.0  
 **Last Updated**: April 2026  
-**Status**: Production Ready ✅
