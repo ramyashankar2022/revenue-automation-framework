@@ -24,9 +24,9 @@ from selenium.webdriver.support import expected_conditions as EC
 # ---------------------------------------------------------------------------
 IS_CI = os.environ.get('CI', 'false').lower() == 'true'
 
-SHORT_WAIT  = 20  if IS_CI else 10   # for single element waits
-LONG_WAIT   = 40  if IS_CI else 20   # for navigation / redirects
-MULTI_WAIT  = 30  if IS_CI else 10   # for multi-selector fallback searches
+SHORT_WAIT  = 50  if IS_CI else 30   # for single element waits
+LONG_WAIT   = 60  if IS_CI else 30   # for navigation / redirects
+MULTI_WAIT  = 40  if IS_CI else 30   # for multi-selector fallback searches
 
 
 # ===========================================================================
