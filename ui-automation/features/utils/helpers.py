@@ -5,9 +5,10 @@ Reusable utility library for Selenium + Behave automation.
 Organised into 5 sections:
   1. Driver Utilities       — Chrome driver setup
   2. Element Utilities      — Wait, find, click helpers
-  3. Navigation Utilities   — Redirect and window switching
-  4. Modal Utilities        — Popup element accessors
-  5. Assertion Utilities    — Formatting, validation, logging
+  3. Page-specific Elements — Vehicle input, calculate button
+  4. Navigation Utilities   — Redirect and window switching
+  5. Modal Utilities        — Popup element accessors
+  6. Assertion Utilities    — Formatting, validation, logging
 """
 import os
 import re
@@ -17,6 +18,15 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+# ---------------------------------------------------------------------------
+# Timeouts — CI servers are slower so we give them more time
+# ---------------------------------------------------------------------------
+IS_CI = os.environ.get('CI', 'false').lower() == 'true'
+
+SHORT_WAIT  = 20  if IS_CI else 10   # for single element waits
+LONG_WAIT   = 40  if IS_CI else 20   # for navigation / redirects
+MULTI_WAIT  = 30  if IS_CI else 10   # for multi-selector fallback searches
 
 
 # ===========================================================================
@@ -48,7 +58,7 @@ def get_chrome_driver():
 # 2. ELEMENT UTILITIES
 # ===========================================================================
 
-def wait_for_clickable(driver, by, selector, timeout=10):
+def wait_for_clickable(driver, by, selector, timeout=SHORT_WAIT):
     """
     Wait until a single element is clickable and return it.
 
@@ -61,7 +71,7 @@ def wait_for_clickable(driver, by, selector, timeout=10):
     )
 
 
-def wait_for_visible(driver, by, selector, timeout=10):
+def wait_for_visible(driver, by, selector, timeout=SHORT_WAIT):
     """
     Wait until a single element is visible and return it.
 
@@ -73,7 +83,7 @@ def wait_for_visible(driver, by, selector, timeout=10):
     )
 
 
-def wait_for_present(driver, by, selector, timeout=10):
+def wait_for_present(driver, by, selector, timeout=SHORT_WAIT):
     """
     Wait until a single element is present in the DOM and return it.
 
@@ -85,7 +95,7 @@ def wait_for_present(driver, by, selector, timeout=10):
     )
 
 
-def find_first_clickable(driver, selectors, timeout=10):
+def find_first_clickable(driver, selectors, timeout=MULTI_WAIT):
     """
     Try a list of (By, selector) pairs in order and return the first
     clickable element found. Returns None if nothing matched.
@@ -109,7 +119,7 @@ def find_first_clickable(driver, selectors, timeout=10):
     return None
 
 
-def find_first_present(driver, selectors, timeout=10):
+def find_first_present(driver, selectors, timeout=MULTI_WAIT):
     """
     Try a list of (By, selector) pairs in order and return the first
     element present in the DOM. Returns None if nothing matched.
@@ -137,7 +147,7 @@ def find_first_present(driver, selectors, timeout=10):
 # 3. PAGE-SPECIFIC ELEMENT HELPERS
 # ===========================================================================
 
-def get_vehicle_input(driver, timeout=10):
+def get_vehicle_input(driver, timeout=SHORT_WAIT):
     """
     Find and return the vehicle amount input field using multiple fallback selectors.
     Raises AssertionError with a clear message if the field cannot be found.
@@ -163,7 +173,7 @@ def get_vehicle_input(driver, timeout=10):
     return vehicle_input
 
 
-def get_calculate_button(driver, timeout=10):
+def get_calculate_button(driver, timeout=SHORT_WAIT):
     """
     Find and return the Calculate button using multiple fallback selectors.
     Raises AssertionError with a clear message if the button cannot be found.
@@ -190,7 +200,7 @@ def get_calculate_button(driver, timeout=10):
 # 4. NAVIGATION UTILITIES
 # ===========================================================================
 
-def wait_for_redirect(driver, original_windows, expected_url_fragment, timeout=20):
+def wait_for_redirect(driver, original_windows, expected_url_fragment, timeout=LONG_WAIT):
     """
     Wait for either:
       - A new browser tab to open, OR
@@ -224,7 +234,7 @@ def wait_for_redirect(driver, original_windows, expected_url_fragment, timeout=2
 # 4. MODAL UTILITIES
 # ===========================================================================
 
-def get_modal(driver, selector="div.modal-content", timeout=10):
+def get_modal(driver, selector="div.modal-content", timeout=LONG_WAIT):
     """
     Wait for and return the modal/popup container element.
 

@@ -71,7 +71,10 @@ def step_enter_vehicle_amount(context, amount):
 
 @when(u'I click the "Calculate" button')
 def step_click_calculate(context):
-    get_calculate_button(context.driver).click()
+    btn = get_calculate_button(context.driver)
+    # Scroll into view before clicking — prevents headless Chrome from missing the click
+    context.driver.execute_script("arguments[0].scrollIntoView(true);", btn)
+    context.driver.execute_script("arguments[0].click();", btn)
 
 
 # ---------------------------------------------------------------------------
